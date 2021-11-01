@@ -24,6 +24,37 @@ RSpec.describe MinefieldsController, type: :request do
         post("/minefields", params: params)
       }.to raise_error(ActionController::BadRequest)
     end
+  end
 
+  describe "#toggle pause/resume" do
+    it "pauses the game" do
+      minefield = create(:minefield)
+      minefield.status = "playing" #for tests only
+      minefield.save
+      put("/minefields/" + minefield.uuid + "/toogle_pause_resume")
+      expect(response).to have_http_status(:ok)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body["game_status"]).to eq("paused")
+    end
+
+    it "resumes the game" do
+      minefield = create(:minefield)
+      minefield.status = "paused" #for tests only
+      minefield.save
+      put("/minefields/" + minefield.uuid + "/toogle_pause_resume")
+      expect(response).to have_http_status(:ok)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body["game_status"]).to eq("playing")
+    end
+  end
+
+  describe "#end the game" do
+    it "ends the game" do
+      minefield = create(:minefield)
+      delete("/minefields/" + minefield.uuid)
+      expect(response).to have_http_status(:ok)
+      parsed_body = JSON.parse(response.body)
+      expect(parsed_body["game_status"]).to eq("YOU LOSE")
+    end
   end
 end

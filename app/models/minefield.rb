@@ -51,12 +51,22 @@ class Minefield < ApplicationRecord
   end
 
   def gameover
-    status = "lost"
-    save
+    self.status = "lost"
+    self.save
+  end
+
+  def toggle
+    return false if ["created", "lost"].include? self.status
+    if self.status == "playing"
+      self.status = "paused"
+    elsif self.status == "paused"
+      self.status = "playing"
+    end
+    self.save
   end
 
   def can_continue?
-    return false if ["paused", "lost"].include? status
+    return false if ["paused", "lost"].include? self.status
     true
   end
 
