@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_01_052245) do
+ActiveRecord::Schema.define(version: 2021_11_01_075412) do
 
   create_table "minefields", force: :cascade do |t|
     t.string "uuid"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2021_11_01_052245) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "mines_number"
+    t.integer "found_spaces"
   end
 
   create_table "mines", force: :cascade do |t|
