@@ -14,7 +14,7 @@ Gems used were:
 
 Database used were
 
-* SQLite
+* Postgres
 
 Important decision before starting the app
 
