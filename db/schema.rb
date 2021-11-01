@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_11_01_075412) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "minefields", force: :cascade do |t|
     t.string "uuid"
     t.integer "x_size"
@@ -24,7 +27,7 @@ ActiveRecord::Schema.define(version: 2021_11_01_075412) do
   end
 
   create_table "squares", force: :cascade do |t|
-    t.integer "minefield_id"
+    t.bigint "minefield_id"
     t.integer "x_position"
     t.integer "y_position"
     t.integer "visibility_status"
@@ -34,4 +37,5 @@ ActiveRecord::Schema.define(version: 2021_11_01_075412) do
     t.index ["minefield_id"], name: "index_squares_on_minefield_id"
   end
 
+  add_foreign_key "squares", "minefields"
 end
