@@ -11,4 +11,15 @@ class Square < ApplicationRecord
     self.visibility_status = "hidden"
     self.asociated_item = "empty_space"
   end
+
+  def flip!
+    return false if ["shown", "question_mark", "red_flag"].include? self.visibility_status
+    self.visibility_status = "shown"
+    self.save
+  end
+
+  def empty_adjacent_squares
+    #TODO
+    [self]
+  end
 end

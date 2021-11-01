@@ -11,6 +11,7 @@ class Minefield < ApplicationRecord
   before_create do
     self.uuid = SecureRandom.uuid
     self.status = 0
+    self.found_spaces = 0
   end
 
   after_create do 
@@ -47,5 +48,24 @@ class Minefield < ApplicationRecord
     if mines_number >= x_size * y_size
       errors.add(:mines_number, "can't be greater than the number of squares")
     end
+  end
+
+  def gameover
+    status = "lost"
+    save
+  end
+
+  def can_continue?
+    return false if ["paused", "lost"].include? status
+    true
+  end
+
+  def win?
+    self.found_spaces+=1
+    self.save
+    if self.found_spaces == (self.x_size * self.y_size) - self.mines_number
+      return true
+    end
+    false
   end
 end
