@@ -4,4 +4,5 @@ RSpec.describe Mine, type: :model do
   let(:object) { create(:mine) }
 
   it { expect(object).to be_valid }
+  it { expect(object.visibility_status).to eq("hidden") }
 end
