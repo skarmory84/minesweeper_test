@@ -22,11 +22,19 @@ class SquaresController < ApplicationController
 
   def red_flag
     check_square
+    response = @square.mark("red_flag")
+    raise ActionController::BadRequest.new, "Cannot red flag that square" unless response
+
+    render json: { game_status: "GAME CONTINUE", square: @square }
   end
 
 
   def question_mark
     check_square
+    response = @square.mark("question_mark")
+    raise ActionController::BadRequest.new, "Cannot question mark that square" unless response
+
+    render json: { game_status: "GAME CONTINUE", square: @square }
   end
 
   private

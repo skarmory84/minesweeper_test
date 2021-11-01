@@ -18,6 +18,12 @@ class Square < ApplicationRecord
     self.save
   end
 
+  def mark(mark_type)
+    return false if self.visibility_status != "hidden"
+    self.visibility_status = mark_type
+    self.save
+  end
+
   def empty_adjacent_squares
     #TODO
     [self]

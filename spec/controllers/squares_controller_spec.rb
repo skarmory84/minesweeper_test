@@ -41,4 +41,26 @@ RSpec.describe SquaresController, type: :request do
       expect(parsed_body["game_status"]).to eq("YOU WIN")
     end
   end
+
+  describe "#mark square" do
+    it "marks with red flag" do
+      minefield = create(:minefield)
+      square = minefield.squares.first
+      params = { x: square.x_position, y: square.y_position }
+      put("/minefields/" + square.minefield.uuid + "/squares/red_flag", params: params)
+      expect(response).to have_http_status(:ok)
+      square.reload
+      expect(square.visibility_status).to eq("red_flag")
+    end
+
+    it "marks with question mark" do
+      minefield = create(:minefield)
+      square = minefield.squares.first
+      params = { x: square.x_position, y: square.y_position }
+      put("/minefields/" + square.minefield.uuid + "/squares/question_mark", params: params)
+      expect(response).to have_http_status(:ok)
+      square.reload
+      expect(square.visibility_status).to eq("question_mark")
+    end
+  end
 end
