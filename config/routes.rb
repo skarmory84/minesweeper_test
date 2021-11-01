@@ -3,10 +3,9 @@ Rails.application.routes.draw do
 
   resource :minefields, only: [:create]
 
-  put "/minefields/:uuid/toogle_pause_resume",  action: :toggle, controller: :minefields
-  delete "/minefields/:uuid",  action: :destroy, controller: :minefields 
-
- scope "/minefields/:uuid" do
+  scope "/minefields/:uuid" do
+    delete "/",  action: :destroy, controller: :minefields 
+    put "/toogle_pause_resume",  action: :toggle, controller: :minefields
     put "/squares", action: :update, controller: :squares
     put "/squares/red_flag", action: :red_flag, controller: :squares
     put "/squares/question_mark", action: :question_mark, controller: :squares
