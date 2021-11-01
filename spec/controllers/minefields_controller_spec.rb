@@ -8,7 +8,7 @@ RSpec.describe MinefieldsController, type: :request do
       post("/minefields", params: params)
       expect(response).to have_http_status(:ok)
       parsed_body = JSON.parse(response.body)
-      expect(parsed_body["mines"].size).to be(10*10)
+      expect(parsed_body["squares"].size).to be(10*10)
     end
 
     it "return bad request" do

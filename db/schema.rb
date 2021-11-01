@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2021_11_01_075412) do
     t.integer "found_spaces"
   end
 
-  create_table "mines", force: :cascade do |t|
+  create_table "squares", force: :cascade do |t|
     t.integer "minefield_id"
     t.integer "x_position"
     t.integer "y_position"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2021_11_01_075412) do
     t.integer "asociated_item"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["minefield_id"], name: "index_mines_on_minefield_id"
+    t.index ["minefield_id"], name: "index_squares_on_minefield_id"
   end
 
 end

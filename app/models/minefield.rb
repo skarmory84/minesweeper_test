@@ -1,5 +1,5 @@
 class Minefield < ApplicationRecord
-  has_many :mines
+  has_many :squares
 
   enum status: %i[created playing paused lost]
   
@@ -17,7 +17,7 @@ class Minefield < ApplicationRecord
     #create squares
     for x in 0..x_size-1
       for y in 0..y_size-1
-        Mine.create(
+        Square.create(
           minefield: self,
           x_position: x,
           y_position: y
@@ -35,7 +35,7 @@ class Minefield < ApplicationRecord
     end
 
     mines_positions_array.each do |position|
-      self.mines.find_by(x_position: position[0], y_position: position[1])
+      self.squares.find_by(x_position: position[0], y_position: position[1])
         .update(asociated_item: "mine")
     end
   end

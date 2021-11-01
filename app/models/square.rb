@@ -1,4 +1,4 @@
-class Mine < ApplicationRecord
+class Square < ApplicationRecord
   belongs_to :minefield
 
   enum visibility_status: %i[hidden shown question_mark red_flag]
